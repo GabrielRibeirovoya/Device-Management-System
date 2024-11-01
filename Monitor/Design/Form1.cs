@@ -1,5 +1,7 @@
 using DeviceManagementSystem;
 using System;
+using System.Data.Common;
+using System.IO.Packaging;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
@@ -9,6 +11,9 @@ namespace Monitor
     {
         DiskInfo diskInfo;
         MemoryInfo memoryInfo;
+        ProcessorInfo processorInfo = new ProcessorInfo();
+        GraphicsCardInfo gpuInfo = new GraphicsCardInfo();
+
         public Form1()
         {
             InitializeComponent();
@@ -17,6 +22,10 @@ namespace Monitor
             Operating_system.Text = Environment.OSVersion.ToString() + " |";
             Operating_system.ForeColor = Color.Gray;
             MemoryInfo memoryInfo = MemoryInfo.GetMemoryInfo();
+            dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            // Exemplo: Definindo a cor de fundo da terceira linha para azul claro
+            dataGridView1.DefaultCellStyle.ForeColor = Color.MediumSlateBlue; // Cor do texto
+
 
             // Atribui os valores aos TextBox
             type.Text = memoryInfo.MemoryType ?? "Indisponível";
@@ -24,6 +33,16 @@ namespace Monitor
             channel.Text = memoryInfo.SlotCount > 0 ? memoryInfo.SlotCount.ToString() : "Indisponível";
             Uncore.Text = memoryInfo.SpeedMHz > 0 ? $"{memoryInfo.SpeedMHz} MHz" : "Indisponível";
 
+            textBox4.Text = processorInfo.Name;
+            textBox1.Text = processorInfo.Description;
+            textBox2.Text = processorInfo.SocketDesignation;
+            textBox3.Text = (processorInfo.MaxClockSpeed).ToString();
+
+            textBox8.Text = gpuInfo.Name;
+            textBox5.Text = (gpuInfo.MemorySizeInGB + " GBytes").ToString();
+            textBox6.Text = gpuInfo.MemoryType;
+            textBox7.Text = (gpuInfo.Manufacturer).ToString();
+            textBox9.Text = (gpuInfo.BusWidth + " Bytes").ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,6 +93,8 @@ namespace Monitor
         {
 
         }
+
+
     }
 }
 

@@ -20,12 +20,12 @@ public class MemoryInfo
                 if (obj["Capacity"] != null)
                     totalMemoryBytes += Convert.ToInt64(obj["Capacity"]);
 
-                int memoryTypeCode = obj["SMBIOSMemoryType"] != null
-                        ? Convert.ToInt32(obj["SMBIOSMemoryType"])
-                        : obj["MemoryType"] != null
-                            ? Convert.ToInt32(obj["MemoryType"])
+                int memoryTypeCode = obj["SMBIOSMemoryType"] != null 
+                        ? Convert.ToInt32(obj["SMBIOSMemoryType"]) 
+                        : obj["MemoryType"] != null 
+                            ? Convert.ToInt32(obj["MemoryType"]) 
                             : 0;
-                memoryInfo.MemoryType = GetMemoryType(memoryTypeCode);
+                    memoryInfo.MemoryType = GetMemoryType(memoryTypeCode);
 
                 if (obj["Speed"] != null)
                     memoryInfo.SpeedMHz = Convert.ToInt32(obj["Speed"]);
@@ -52,4 +52,5 @@ public class MemoryInfo
             _ => "Desconhecido"
         };
     }
+
 }
